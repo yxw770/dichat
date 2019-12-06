@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/dichat_parent/dichat_a_web/dichat_a_web.iml" filepath="$PROJECT_DIR$/dichat_parent/dichat_a_web/dichat_a_web.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dichat_parent/dichat_common/dichat_common.iml" filepath="$PROJECT_DIR$/dichat_parent/dichat_common/dichat_common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dichat_parent/dichat_dao/dichat_dao.iml" filepath="$PROJECT_DIR$/dichat_parent/dichat_dao/dichat_dao.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dichat_parent/dichat_parent.iml" filepath="$PROJECT_DIR$/dichat_parent/dichat_parent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dichat_parent/dichat_pojo/dichat_pojo.iml" filepath="$PROJECT_DIR$/dichat_parent/dichat_pojo/dichat_pojo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dichat_parent/dichat_service/dichat_service.iml" filepath="$PROJECT_DIR$/dichat_parent/dichat_service/dichat_service.iml" />
+    </modules>
+  </component>
+</project>

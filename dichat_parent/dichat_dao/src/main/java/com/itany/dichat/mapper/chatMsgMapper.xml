@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itany.dichat.dao.chatMsgDao">
+
+    <sql id="selectAllMsgColumn">
+      id,
+      sendUserid,
+      toUserid,
+      create_at,
+      update_at,
+      msg,
+      type,
+      isSend
+    </sql>
+    <select id="selectAllMsg" resultType="chatMsg">
+        select <include refid="selectAllMsgColumn"/>
+        from chatMsg
+        where sendUserid=#{userid} and send_is_trush=0 OR toUserid=#{userid} AND to_is_trush=0
+        order by id desc
+    </select>
+    <select id="selectgetUnReadList" resultType="chatMsg">
+        select c.id
+        from chatMsg c
+          left join UserFriend f
+          on c.sendUserid=f.friendUserid
+          where c.toUserid=#{userid} and c.isSend=0 and c.update_at=0 AND c.to_is_trush=0 and f.is_black=0
+    </select>
+    <select id="selectUnReadListByFriendUserid" resultType="chatMsg">
+        select c.id,c.sendUserid,c.toUserid,c.isSend,c.type,c.id,c.msg,c.create_at
+        from chatMsg c
+          left join UserFriend f
+          on c.sendUserid=f.friendUserid
+          where c.toUserid=#{userid} and c.sendUserid=#{friendUserid} and c.isSend=0 AND c.to_is_trush=0 and f.is_black=0
+    </select>
+    <select id="selectFriendMsgASC" resultType="chatMsg">
+        select <include refid="selectAllMsgColumn"/>
+        from chatMsg
+        where sendUserid=#{userid} and toUserid=#{friendUserid} and send_is_trush=0 OR toUserid=#{userid} AND sendUserid = #{friendUserid} AND to_is_trush=0
+
+    </select>
+    <select id="selectFriendMsg" resultType="chatMsg">
+        select <include refid="selectAllMsgColumn"/>
+        from chatMsg
+        where sendUserid=#{userid} and toUserid=#{friendUserid} and send_is_trush=0 OR toUserid=#{userid} AND sendUserid = #{friendUserid} AND to_is_trush=0
+        ORDER by id desc
+    </select>
+    <update id="setRead">
+        update chatMsg
+        set isSend=1,update_at=#{update_at}
+        where toUserid=#{userid} AND sendUserid=#{friendUserid} AND isSend=0
+    </update>
+    <insert id="sendTextMsg" parameterType="chatMsg">
+    insert into chatMsg(sendUserid, toUserid, create_at, msg)
+    values(#{sendUserid},#{toUserid},#{create_at},#{msg})
+  </insert>
+    <insert id="sendImgMsg" parameterType="chatMsg" useGeneratedKeys="true" keyProperty="id">
+    insert into chatMsg(sendUserid, toUserid, create_at, msg,type)
+    values(#{sendUserid},#{toUserid},#{create_at},#{msg},1)
+  </insert>
+    <update id="updateIsTrushByFriendUseridSend">
+        update chatMsg
+        set send_is_trush=1,update_at=#{update_at}
+        where sendUserid=#{userid} and toUserid=#{friendUserid}
+    </update>
+    <update id="updateIsTrushByFriendUseridTo">
+        update chatMsg
+        set to_is_trush=1,update_at=#{update_at}
+        where sendUserid=#{friendUserid} and toUserid=#{userid}
+    </update>
+    <update id="updateTime">
+        update chatMsg
+        set update_at=#{update_at}
+        where toUserid=#{userid}
+    </update>
+</mapper>

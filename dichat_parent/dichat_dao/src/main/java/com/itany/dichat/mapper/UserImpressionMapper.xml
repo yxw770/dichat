@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itany.dichat.dao.UserImpressionDao">
+    <sql id="ImpressionColumn">
+      id,
+      fromUserid,
+      toUserid,
+      msg,
+      create_at
+
+    </sql>
+    <insert id="addImpression" parameterType="UserImpression">
+    insert into UserImpression(fromUserid, toUserid, msg, create_at)
+    values(#{fromUserid},#{toUserid},#{msg},#{create_at})
+  </insert>
+
+    <select id="selectAllByToUserid" resultType="UserImpression">
+        select <include refid="ImpressionColumn"/>
+        from UserImpression
+        where toUserid=#{friendUserid}
+        ORDER by id DESC
+    </select>
+</mapper>

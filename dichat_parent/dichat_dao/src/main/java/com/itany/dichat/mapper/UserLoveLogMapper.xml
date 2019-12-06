@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itany.dichat.dao.UserLoveLogDao">
+    <sql id="LoveLogColumn">
+      id,
+      impressionId,
+      Userid,
+      create_at
+    </sql>
+    <insert id="addLove" parameterType="UserLoveLog"  useGeneratedKeys="true" keyProperty="id">
+    insert into UserLoveLog(impressionId, Userid, create_at)
+    values(#{impressionId},#{userid},#{time})
+  </insert>
+
+    <select id="selectByImpressionId" resultType="UserLoveLog">
+        select <include refid="LoveLogColumn"/>
+        from UserLoveLog
+        where impressionId=#{id}
+        ORDER by id ASC
+    </select>
+    <select id="selectOneByuseridAndImpressionId" resultType="UserLoveLog">
+        select <include refid="LoveLogColumn"/>
+        from UserLoveLog
+        where impressionId=#{impressionId} AND Userid=#{userid}
+    </select>
+</mapper>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/dichat_parent" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/dichat_parent/dichat_a_web" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/dichat_parent/dichat_common" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/dichat_parent/dichat_dao" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/dichat_parent/dichat_pojo" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/dichat_parent/dichat_service" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/dichat_parent/dichat_web" charset="UTF-8" />
+  </component>
+</project>

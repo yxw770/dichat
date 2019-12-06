@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itany.dichat.dao.UserFriendDao">
+    <sql id="FriendColumn">
+        friendUserid,
+        sort,
+        is_top
+
+    </sql>
+    <sql id="FriendColumn2">
+        id,
+        userid,
+        friendUserid,
+        sort,
+        is_top,
+        is_black,
+        create_at
+
+    </sql>
+    <select id="selectByUserid" resultType="UserFriend">
+        select <include refid="FriendColumn2"/>
+        from UserFriend
+        where userid=#{userid} AND is_black=0
+        order BY sort DESC, id DESC
+    </select>
+    <select id="findFriendByUserid" resultType="UserFriend">
+        select <include refid="FriendColumn"/>
+        from UserFriend
+        where userid=#{userid} AND friendUserid=#{friendUserid} AND is_black=0
+        order BY sort DESC, id DESC
+    </select>
+    <select id="findFriendByUseridAll" resultType="UserFriend">
+        select <include refid="FriendColumn2"/>
+        from UserFriend
+        where userid=#{userid} AND friendUserid=#{friendUserid}
+    </select>
+    <select id="selectFriendListByUserid" resultType="UserFriendList">
+        select f.id,f.friendUserid,d.headPortrait,d.name,d.instructions,f.sort
+        from UserFriend f
+          left join UserDefine d
+          on f.friendUserid = d.userid
+          where f.userid=#{userid} and f.is_black=0
+        order BY f.sort DESC, f.id DESC
+    </select>
+
+    <update id="setFriendTop">
+        update UserFriend
+        set is_top=#{is_top},update_at=#{update_at}
+        where userid=#{userid} AND friendUserid=#{friendUserid}
+    </update>
+    <update id="delFriendByFriendUserid">
+        update UserFriend
+        set is_black=1,update_at=#{update_at}
+        where userid=#{userid} AND friendUserid=#{friendUserid}
+    </update>
+    <update id="updateBlackStatus">
+        update UserFriend
+        set is_black=#{is_black},update_at=#{update_at}
+        where userid=#{userid} AND friendUserid=#{friendUserid}
+    </update>
+    <insert id="insertFriend" parameterType="UserFriend">
+    insert into UserFriend(userid, friendUserid, create_at)
+    values(#{userid},#{friendUserid},#{create_at})
+  </insert>
+    <update id="setSort">
+        update UserFriend
+        set sort=#{sort},update_at=#{update_at}
+        where userid=#{userid} AND id=#{id}
+    </update>
+
+</mapper>

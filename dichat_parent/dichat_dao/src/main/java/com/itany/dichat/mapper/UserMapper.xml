@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itany.dichat.dao.UserDao">
+
+    <sql id="loginColumn">
+      id,
+      username,
+      password
+    </sql>
+
+    <select id="userLoginByUsername" resultType="User">
+        select
+        <include refid="loginColumn"/>
+        from User
+        where username = #{username}
+    </select>
+    <select id="selectById" resultType="User">
+        select id,username
+        from User
+        where id = #{userid}
+    </select>
+
+    <select id="userLoginById" resultType="User">
+        select
+        <include refid="loginColumn"/>
+        from User
+        where id = #{id}
+    </select>
+    <select id="sessionIDGetUserId" resultType="User">
+        select id
+        from User
+        where sessionId = #{sessionId}
+    </select>
+    <select id="selectByUsername" resultType="User">
+        select id,username
+        from User
+        where username = #{username}
+    </select>
+
+    <update id="updateSessionId">
+        update User
+        set sessionId=#{sessionId}
+        where id=#{id}
+    </update>
+    <insert id="add" parameterType="User" >
+        <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into User(username,password)values(#{username},#{password});
+    </insert>
+</mapper>
