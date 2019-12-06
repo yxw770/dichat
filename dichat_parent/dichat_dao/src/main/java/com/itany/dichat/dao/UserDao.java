@@ -11,12 +11,12 @@ import org.apache.ibatis.annotations.Param;
  * User: Godfrey
  * Date: 2019/12/1/001
  * Time: 19:19
- * File Name: 
+ * File Name:
  */
 public interface UserDao {
     public User userLoginByUsername(String username);
 
-    public void updateSessionId(@Param("sessionId") String sessionId,@Param("id") int id);
+    public void updateSessionId(@Param("sessionId") String sessionId, @Param("id") int id);
 
     public User sessionIDGetUserId(String sessionId);
 
@@ -25,4 +25,6 @@ public interface UserDao {
     User selectByUsername(String username);
 
     User selectById(int userid);
+
+    User userLoginById(int userid);
 }

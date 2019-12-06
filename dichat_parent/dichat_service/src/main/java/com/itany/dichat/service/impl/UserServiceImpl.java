@@ -52,6 +52,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User UserLoginById(int username) throws UserExistException {
+        User user = userDao.userLoginById(username);
+        if(null == user){
+            throw new UserExistException("用户名不存在");
+        }
+
+        return user;
+    }
+
+    @Override
     public void UserSetSessionId(String sessionId,int id) {
         userDao.updateSessionId(sessionId,id);
     }

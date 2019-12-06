@@ -23,7 +23,13 @@ public interface UserService {
      * @throws UserExistException
      */
     public User UserLoginByusername(String username) throws UserExistException;
-
+    /**
+     * 用户名登录
+     * @param username
+     * @return
+     * @throws UserExistException
+     */
+    public User UserLoginById(int username) throws UserExistException;
     /**
      * 设置用户sessionid
      * @param sessionId

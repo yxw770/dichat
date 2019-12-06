@@ -26,7 +26,7 @@
         select
         <include refid="loginColumn"/>
         from User
-        where id = #{id}
+        where id = #{userid}
     </select>
     <select id="sessionIDGetUserId" resultType="User">
         select id

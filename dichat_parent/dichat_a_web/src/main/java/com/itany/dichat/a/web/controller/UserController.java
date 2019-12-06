@@ -24,6 +24,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 /**
  * Created by IntelliJ IDEA.
@@ -48,7 +49,13 @@ public class UserController {
          * 登录区
          */
         try {
-            User user = userService.UserLoginByusername(username);
+            User user = new User();
+            Pattern pattern = Pattern.compile("[0-9]*");
+            if(pattern.matcher(username).matches()){
+                user = userService.UserLoginById(Integer.parseInt(username));
+            }else{
+                user = userService.UserLoginByusername(username);
+            }
 
             if (user.getPassword().equals(password)) {
                 session.setAttribute("user.username", user.getUsername());
