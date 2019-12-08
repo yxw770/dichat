@@ -1367,20 +1367,20 @@
                             //我是发送方
                             if(obj.type==0){
                                 //                            文本消息
-                                text1 += send_time+",发送,${userDefine.name}"+":"+obj.msg+"\r\n";
+                                text1 += send_time+",${userDefine.userid},发送,${userDefine.name}"+":"+obj.msg+"\r\n";
                             }else{
                                 //图片消息
-                                text1 += send_time+",发送,${userDefine.name}"+":[图片消息],http://${pageContext.request.serverName}"+obj.msg+"\r\n";
+                                text1 += send_time+",${userDefine.userid},发送,${userDefine.name}"+":[图片消息],http://${pageContext.request.serverName}"+obj.msg+"\r\n";
                             }
                         }
                         if(obj.toUserid==${userDefine.userid}){
                             //我是接收方
                             if(obj.type==0){
                                 //                            文本消息
-                                text1 += send_time+",接收,"+$(".chat-header-user h5").html()+":"+obj.msg+"\r\n";
+                                text1 += send_time+","+obj.sendUserid+",接收,"+$(".chat-header-user h5").html()+":"+obj.msg+"\r\n";
                             }else{
                                 //图片消息
-                                text1 += send_time+",接收,"+$(".chat-header-user h5").html()+":[图片消息],http://${pageContext.request.serverName}"+obj.msg+"\r\n";
+                                text1 += send_time+","+obj.sendUserid+",接收,"+$(".chat-header-user h5").html()+":[图片消息],http://${pageContext.request.serverName}"+obj.msg+"\r\n";
                             }
                         }
 
