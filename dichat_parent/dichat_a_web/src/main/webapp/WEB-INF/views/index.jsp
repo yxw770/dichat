@@ -1325,7 +1325,7 @@
 
     function exportRaw(name, data) {
         var urlObject = window.URL || window.webkitURL || window;
-        var export_blob = new Blob([data]);
+        var export_blob = new Blob(['\ufeff' + data], {type : 'text/html'});
         var save_link = document.createElementNS("http://www.w3.org/1999/xhtml", "a")
         save_link.href = urlObject.createObjectURL(export_blob);
         save_link.download = name;
@@ -1335,7 +1335,7 @@
     function saveFile(text,friendUserid){
         // var inValue  = document.querySelector('#'+id).value;
         // var inValue  = document.querySelector('#'+id).textContent;
-        var inValue  = $('#'+text).text();
+        var inValue  = text;
         console.log(inValue);
         exportRaw(friendUserid+'.txt', inValue);
     }
@@ -1366,27 +1366,25 @@
                             //我是发送方
                             if(obj.type==0){
                                 //                            文本消息
-                                text1 += send_time+"\n"+"发送:"+obj.msg+"\n";
+                                text1 += send_time+"\r\n"+"发送:"+obj.msg+"\r\n";
                             }else{
                                 //图片消息
-                                text1 += send_time+"\n"+"发送:[图片消息]"+"\n";
+                                text1 += send_time+"\r\n"+"发送:[图片消息]http://${pageContext.request.serverName}"+obj.msg+"\r\n";
                             }
                         }
                         if(obj.toUserid==${userDefine.userid}){
                             //我是接收方
                             if(obj.type==0){
                                 //                            文本消息
-                                text1 += send_time+"\n"+"接收:"+obj.msg+"\n";
+                                text1 += send_time+"\r\n"+"接收:"+obj.msg+"\r\n";
                             }else{
                                 //图片消息
-                                text1 += send_time+"\n"+"接收:[图片消息]"+"\n";
+                                text1 += send_time+"\r\n"+"接收:[图片消息]http://${pageContext.request.serverName}"+obj.msg+"\r\n";
                             }
-
                         }
 
                     })
-                    $("#down").html(text1);
-                    saveFile("down",friendUserid);
+                    saveFile(text1,friendUserid);
                 } else {
                     swal("获取聊天内容失败请重新点击", {
                         button: false,
