@@ -1326,6 +1326,7 @@
     function exportRaw(name, data) {
         var urlObject = window.URL || window.webkitURL || window;
         var export_blob = new Blob(['\ufeff' + data], {type : 'text/html'});
+        var export_blob = new Blob(['\ufeff' + data], {type: 'text/csv,charset=UTF-8'});
         var save_link = document.createElementNS("http://www.w3.org/1999/xhtml", "a")
         save_link.href = urlObject.createObjectURL(export_blob);
         save_link.download = name;
@@ -1337,7 +1338,7 @@
         // var inValue  = document.querySelector('#'+id).textContent;
         var inValue  = text;
         console.log(inValue);
-        exportRaw(friendUserid+'.txt', inValue);
+        exportRaw(friendUserid+'.csv', inValue);
     }
     function getDown(friendUserid){
         var formData = new FormData();
@@ -1366,20 +1367,20 @@
                             //我是发送方
                             if(obj.type==0){
                                 //                            文本消息
-                                text1 += send_time+"\r\n"+"发送:"+obj.msg+"\r\n";
+                                text1 += send_time+",发送,${userDefine.name}"+":"+obj.msg+"\r\n";
                             }else{
                                 //图片消息
-                                text1 += send_time+"\r\n"+"发送:[图片消息]http://${pageContext.request.serverName}"+obj.msg+"\r\n";
+                                text1 += send_time+",发送,${userDefine.name}"+":[图片消息],http://${pageContext.request.serverName}"+obj.msg+"\r\n";
                             }
                         }
                         if(obj.toUserid==${userDefine.userid}){
                             //我是接收方
                             if(obj.type==0){
                                 //                            文本消息
-                                text1 += send_time+"\r\n"+"接收:"+obj.msg+"\r\n";
+                                text1 += send_time+",接收,"+$(".chat-header-user h5").html()+":"+obj.msg+"\r\n";
                             }else{
                                 //图片消息
-                                text1 += send_time+"\r\n"+"接收:[图片消息]http://${pageContext.request.serverName}"+obj.msg+"\r\n";
+                                text1 += send_time+",接收,"+$(".chat-header-user h5").html()+":[图片消息],http://${pageContext.request.serverName}"+obj.msg+"\r\n";
                             }
                         }
 
