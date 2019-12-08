@@ -49,7 +49,7 @@ public class UserController {
          * 登录区
          */
         try {
-            User user = new User();
+            User user ;
             Pattern pattern = Pattern.compile("[0-9]*");
             if(pattern.matcher(username).matches()){
                 user = userService.UserLoginById(Integer.parseInt(username));
