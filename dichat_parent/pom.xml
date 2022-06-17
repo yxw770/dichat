@@ -34,7 +34,7 @@
         <mysql-connector-java.version>5.1.38</mysql-connector-java.version>
         <druid.version>1.1.21</druid.version>
         <commons-fileupload.version>1.4</commons-fileupload.version>
-        <fastjson.version>1.2.62</fastjson.version>
+        <fastjson.version>1.2.83</fastjson.version>
         <tomcat7-maven-plugin.version>2.2</tomcat7-maven-plugin.version>
         <commons-beanutils.version>1.9.4</commons-beanutils.version>
     </properties>
